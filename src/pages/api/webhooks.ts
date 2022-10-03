@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from 'stream';
 import Stripe from "stripe";
 
-import { stripe } from "../../services/stripe"
+import { stripe } from "../../services/stripe";
 
 async function buffer(readable: Readable) {
   const chunks = [];
