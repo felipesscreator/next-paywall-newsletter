@@ -1,5 +1,5 @@
-import NextAuth from "next-auth";
 import { Client } from 'faunadb';
+import NextAuth from "next-auth";
 import { FaunaAdapter } from "@next-auth/fauna-adapter";
 
 export const fauna = new Client({

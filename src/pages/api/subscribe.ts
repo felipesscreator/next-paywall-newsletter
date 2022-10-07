@@ -2,23 +2,23 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import { query as q } from "faunadb";
 
+import { stripe } from "../../services/stripe";
+import { fauna } from "../../services/fauna";
+
 type User = {
   ref: {
     id: string,
   },
   data: {
-    stripe_custumer_id: string,
+    stripe_customer_id: string,
   }
 }
 
-import { stripe } from "../../services/stripe";
-import fauna from "../../services/fauna";
-
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (  req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const session = await getSession({ req });
 
-    const user: User = await fauna.query(
+    const user = await fauna.query<User>(
       q.Get(
         q.Match(
           q.Index("user_by_email"),
@@ -27,10 +27,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       )
     )
 
-    let custumerId = user.data.stripe_custumer_id;
+    let customerId = user.data.stripe_customer_id;
 
-    if (!custumerId) {
-      const stripeCustumer = await stripe.customers.create({
+    if (!customerId) {
+      const stripeCustomer = await stripe.customers.create({
         email: session.user.email,
         // metadata
       })
@@ -40,18 +40,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           q.Ref(q.Collection('users'), user.ref.id),
           {
             data: {
-              stripe_custumer_id: stripeCustumer.id,
+              stripe_customer_id: stripeCustomer.id,
             }
           }
         )
       )
 
-      custumerId = stripeCustumer.id;
+      customerId = stripeCustomer.id;
     }
 
-
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
-      customer: custumerId,
+      customer: customerId,
       payment_method_types: ['card'],
       billing_address_collection: 'required',
       line_items: [

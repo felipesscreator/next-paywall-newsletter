@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "import/no-anonymous-default-export": ["error", {
+    "allowArrowFunction": true,
+    "allowCallExpression": true // The true value here is for backward compatibility
+  }]
 }

@@ -25,7 +25,6 @@ export const config = {
 
 const relevantEvents = new Set([
   'checkout.session.completed',
-  'customer.subscription.created',
   'customer.subscription.updated',
   'customer.subscription.deleted'
 ])
@@ -52,29 +51,29 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (relevantEvents.has(type)) {
       try {
         switch (type) {
-          case 'checkout.subscription.created':
-          case 'checkout.subscription.updated':
-          case 'checkout.subscription.deleted':
+          case 'customer.subscription.updated':
+          case 'customer.subscription.deleted':
             const subscription = event.data.object as Stripe.Subscription;
 
             await saveSubscription( 
               subscription.id,
               subscription.customer.toString(),
-              type === 'customer.subscription.created',
+              false            
             );
 
           break;
-          case 'checkout.session.completed':
 
+          case 'checkout.session.completed':
             const checkoutSession = event.data.object as Stripe.Checkout.Session;
 
             await saveSubscription(
               checkoutSession.subscription.toString(),
               checkoutSession.customer.toString(),
-              false
+              true
             )
             
-            break;
+          break;
+
           default:
             throw new Error('Unhandled event.');
         }
@@ -83,7 +82,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
     
-    res.status(200).json({ ok: true });
+    res.json({ received: true });
   } else {
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method not allowed')
