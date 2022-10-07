@@ -1,6 +1,7 @@
 # NewsLetter 
 
 ### A newsletter with paywall made ussing react.js and next.js.
+Frontend with Backend and database serverless.
 
 ## Running the app
 
