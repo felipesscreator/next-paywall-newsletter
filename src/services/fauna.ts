@@ -3,7 +3,8 @@ import { Client } from 'faunadb';
 import { FaunaAdapter } from "@next-auth/fauna-adapter";
 
 export const fauna = new Client({
-  secret: process.env.FAUNADB_KEY
+  secret: process.env.FAUNADB_KEY,
+  domain: 'db.us.fauna.com',
 })
 
 export default NextAuth({

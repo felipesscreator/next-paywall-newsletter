@@ -5,7 +5,7 @@ import fauna from "../../../services/fauna";
 
 export async function saveSubscription(
   subscriptionId: string,
-  custumerId: string,
+  customerId: string,
   createAction: false,
 ) {
   const userRef = await fauna.query(
@@ -14,7 +14,7 @@ export async function saveSubscription(
       q.Get(
         q.Match(
           q.Index('user_by_stripe_customer_id'),
-          custumerId
+          customerId
         )
       )  
     )
