@@ -1,0 +1,21 @@
+{
+  "id": "posts",
+  "label": "post",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "post": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}
