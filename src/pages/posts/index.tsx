@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Prismic from '@prismicio/client';
 
-import { client } from '../../services/prismic';
+import { createClient } from '../../services/prismic';
 
 import styles from './styles.module.scss';
 
@@ -41,10 +41,16 @@ export default function Posts() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const prismic = client;
+export const getStaticProps: GetStaticProps = async ({ previewData }) => {
+  const client = createClient({ previewData });
 
-  const response = await prismic.getAllByType('posts')
+  const response = await client.getAllByType('posts')
+
+  // const response = await client.getAllByType('posts', {
+  //   predicates: [Prismic.predicate.at('document.type', 'posts')],
+  //   fetch: ['posts.title', 'posts.descricao'],
+  //   pageSize: 100,
+  // })
 
   console.log(JSON.stringify(response, null, 2))
 
