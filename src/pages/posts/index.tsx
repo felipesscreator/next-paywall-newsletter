@@ -1,6 +1,5 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import { RichText } from 'prismic-dom';
 
 import { createClient } from '../../services/prismic';
 
@@ -39,7 +38,9 @@ export default function Posts({ posts }: PostsProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ previewData }) => {
+export const getStaticProps: GetStaticProps = async ({ 
+  previewData, 
+}: GetStaticPropsContext) => {
   const client = createClient({ previewData });
 
   const response = await client.getAllByType('posts')
