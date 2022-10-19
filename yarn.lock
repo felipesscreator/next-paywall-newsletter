@@ -1271,7 +1271,7 @@
 
 "@prismicio/react@^2.5.0":
   version "2.5.0"
-  resolved "https://registry.npmjs.org/@prismicio/react/-/react-2.5.0.tgz"
+  resolved "https://registry.yarnpkg.com/@prismicio/react/-/react-2.5.0.tgz#2fa27467e153db8d761b72eeec648ac4e7ed910b"
   integrity sha512-1EYdvoU2bpVEkmVDDVyTUK22C580tTWR96HJ9PMUex0oGeJLBAMKiRinyachN42r1uCH5nRAH54A90ZtBjjZhw==
   dependencies:
     "@prismicio/helpers" "^2.3.1"
@@ -1308,7 +1308,7 @@
 
 "@prismicio/slice-simulator-react@^0.2.2":
   version "0.2.2"
-  resolved "https://registry.npmjs.org/@prismicio/slice-simulator-react/-/slice-simulator-react-0.2.2.tgz"
+  resolved "https://registry.yarnpkg.com/@prismicio/slice-simulator-react/-/slice-simulator-react-0.2.2.tgz#e12602def4c23c324a0a9f39c0ec3dbbd06a2681"
   integrity sha512-GfAP4nR01OhsahrNOhc58L0sVDcieU5AWEuuiRN55txQjKgaAl5GVtn0V6Pz4albnY4KKvLlQIffcgy2W+L9TQ==
   dependencies:
     "@prismicio/slice-simulator-core" "^0.2.1"
@@ -1385,23 +1385,23 @@
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-4.6.0.tgz"
   integrity sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==
 
-"@slicemachine/client@1.1.13":
-  version "1.1.13"
-  resolved "https://registry.npmjs.org/@slicemachine/client/-/client-1.1.13.tgz"
-  integrity sha512-Si75q6qCJK/19J2v9nMwK1VG/EHFAU4ojn9dJL2o3ThQ4f9LoW+pz9BOUJMlFNvqTGauOewXeLxS6Ayg1zWK5Q==
+"@slicemachine/client@1.1.14":
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/@slicemachine/client/-/client-1.1.14.tgz#87cf8f4634a8ace00289a0a322bda153d2523785"
+  integrity sha512-aL1KNOixoXlQE1RrA29p9S7aQZrHKC+RpywT4IVCVyFRw9kFMn73apJi5wDEYAXGymRP/KLZdLAGrZKEDnO6cg==
   dependencies:
     "@prismicio/types-internal" "^0.2.8"
-    "@slicemachine/core" "1.1.13"
+    "@slicemachine/core" "1.1.14"
     axios "^0.27.2"
     form-data "^3.0.0"
     fp-ts "^2.11.5"
     io-ts "^2.2.16"
     mime "^2.5.2"
 
-"@slicemachine/core@1.1.13":
-  version "1.1.13"
-  resolved "https://registry.npmjs.org/@slicemachine/core/-/core-1.1.13.tgz"
-  integrity sha512-Mn1+AmP8/+y1nvejUbEVsKwqvDPdbqnIH2ovz5P3/9iOSs9+44CAOPW0FwDvXOCz/bBlV86azoEI8BsyTIuPRQ==
+"@slicemachine/core@1.1.14":
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/@slicemachine/core/-/core-1.1.14.tgz#9a8d51c9b2656b3f86bf358194f74d0b26f52b47"
+  integrity sha512-HqYr++V4rZh5OK4cQAB62SIlj7WN0ufQcKo32b3nrvmAgWcFpYmNSjNYjumQ3/TiHx8NC3A23y2Gr+KYi9208w==
   dependencies:
     "@babel/runtime" "^7.18.9"
     "@prismicio/types-internal" "^0.2.8"
@@ -4959,7 +4959,7 @@ module-alias@^2.2.2:
   resolved "https://registry.npmjs.org/module-alias/-/module-alias-2.2.2.tgz"
   integrity sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==
 
-monocle-ts@^2.3.11:
+monocle-ts@^2.0.0, monocle-ts@^2.3.11:
   version "2.3.13"
   resolved "https://registry.npmjs.org/monocle-ts/-/monocle-ts-2.3.13.tgz"
   integrity sha512-D5Ygd3oulEoAm3KuGO0eeJIrhFf1jlQIoEVV2DYsZUMz42j4tGxgct97Aq68+F8w4w4geEnwFa8HayTS/7lpKQ==
@@ -5039,7 +5039,7 @@ neverthrow@^4.2.1:
   resolved "https://registry.npmjs.org/neverthrow/-/neverthrow-4.4.2.tgz"
   integrity sha512-QVY0ylzBF71pUdLshRrqtweMgqKnE3R37/T82Z5bhO/z8P9z96PC/5pEl2FmiZSy0p+3lsjKerh6jmTWM5fv2g==
 
-newtype-ts@^0.3.5:
+newtype-ts@^0.3.2, newtype-ts@^0.3.5:
   version "0.3.5"
   resolved "https://registry.npmjs.org/newtype-ts/-/newtype-ts-0.3.5.tgz"
   integrity sha512-v83UEQMlVR75yf1OUdoSFssjitxzjZlqBAjiGQ4WJaML8Jdc68LJ+BaSAXUmKY4bNzp7hygkKLYTsDi14PxI2g==
@@ -6262,17 +6262,17 @@ slash@3.0.0, slash@^3.0.0:
   resolved "https://registry.npmjs.org/slash/-/slash-3.0.0.tgz"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-slice-machine-ui@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npmjs.org/slice-machine-ui/-/slice-machine-ui-0.5.0.tgz"
-  integrity sha512-dakwmP4eNbqoVbBPD+UlOyBeq9b932H5QQZP6aXmO8ErSgs+lX3PyZyKN9hsH3HusdMTGz66f84SnvPSIg7MrQ==
+slice-machine-ui@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/slice-machine-ui/-/slice-machine-ui-0.5.1.tgz#9a2585346ac6aaceef5630e18e554955e5fde543"
+  integrity sha512-2rbWMbVkx6fAqA4s0clrxvxjzAHox7Y+fjq8wmhhjmVYUgFXua03VGGwxgMtww6+EW0QCaY/NDpkDru3rrHTkg==
   dependencies:
     "@babel/register" "^7.17.7"
     "@prismicio/api-renderer" "^0.1.7"
     "@prismicio/mocks" "^0.1.8"
     "@prismicio/types-internal" "^0.3.0"
-    "@slicemachine/client" "1.1.13"
-    "@slicemachine/core" "1.1.13"
+    "@slicemachine/client" "1.1.14"
+    "@slicemachine/core" "1.1.14"
     "@svgr/webpack" "^5.4.0"
     analytics-node "^6.1.0"
     atob "^2.1.2"
@@ -6297,17 +6297,21 @@ slice-machine-ui@^0.5.0:
     glob "^7.1.6"
     io-ts "^2.2.16"
     io-ts-reporters "^2.0.1"
+    io-ts-types "^0.5.16"
     lodash "^4.17.21"
     lorem-ipsum "^2.0.3"
     mime "^2.5.2"
     module-alias "^2.2.2"
+    monocle-ts "^2.0.0"
     neverthrow "^4.2.1"
+    newtype-ts "^0.3.2"
     npm-registry-fetch "^12.0.1"
     npmlog "^5.0.0"
     oembed-parser "^1.4.5"
     open "^8.2.1"
     ora "6.0.1"
     parse-domain "^4.0.0"
+    prismic-ts-codegen "^0.1.5"
     probe-image-size "^7.2.2"
     prompts "^2.4.0"
     puppeteer "^16.0.0"

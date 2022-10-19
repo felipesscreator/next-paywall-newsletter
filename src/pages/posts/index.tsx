@@ -1,5 +1,7 @@
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
+import { RichText } from 'prismic-dom';
 
 import { createClient } from '../../services/prismic';
 
@@ -17,6 +19,7 @@ interface PostsProps {
 }
 
 export default function Posts({ posts }: PostsProps) {
+  console.log(posts)
   return(
     <>
       <Head>
@@ -26,11 +29,13 @@ export default function Posts({ posts }: PostsProps) {
       <main className={styles.container}>
         <div className={styles.posts}>
           {posts.map(post => (
-            <a key={post.slug} href='#'>
-              <time>{post.updatedAt}</time>
-              <strong>{post.title}</strong>
-              <p>{post.excerpt}</p>
-            </a>
+            <Link href={`/posts/${post.slug}`}>
+              <a key={post.slug}>
+                <time>{post.updatedAt}</time>
+                <strong>{post.title}</strong>
+                <p>{post.excerpt}</p>
+              </a>
+            </Link>
           ))}
         </div>
       </main>
@@ -43,13 +48,17 @@ export const getStaticProps: GetStaticProps = async ({
 }: GetStaticPropsContext) => {
   const client = createClient({ previewData });
 
-  const response = await client.getAllByType('posts')
+  const response = await client.getAllByType('post')
 
   const posts = response.map(post => {
     return {
       slug: post.uid,
-      title: post.data.slices[0].items[0].title,
-      excerpt: post.data.slices[0].items[0].descricao,
+      title: post.data.title,
+      excerpt: post.data.slices[0].items[0].description[0].text
+      // .find(
+      //   description => description.type === 'paragraph'?.text ??''
+      // )
+      ,
       updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
@@ -57,6 +66,8 @@ export const getStaticProps: GetStaticProps = async ({
       })
     }
   })
+
+  console.log(JSON.stringify(response, null, 2))
 
   return {
     props: {

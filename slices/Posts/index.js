@@ -1,7 +1,12 @@
 import React from 'react'
 import { PrismicRichText } from '@prismicio/react'
 
-const Post = ({ slice }) => (
+/**
+ * @typedef {import("@prismicio/client").Content.PostsSlice} PostsSlice
+ * @typedef {import("@prismicio/react").SliceComponentProps<PostsSlice>} PostsProps
+ * @param { PostsProps }
+ */
+const Posts = ({ slice }) => (
   <section>
     <span className="title">
       {
@@ -28,4 +33,4 @@ const Post = ({ slice }) => (
   </section>
 )
 
-export default Post
+export default Posts

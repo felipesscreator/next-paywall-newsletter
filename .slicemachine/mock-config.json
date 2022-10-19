@@ -1,12 +1,31 @@
 {
   "_cts": {
-    "posts": {}
+    "posts": {},
+    "postss": {},
+    "post": {}
   },
   "slices": {
     "Post": {
       "default": {
         "primary": {},
-        "items": {}
+        "items": {
+          "uid": {
+            "content": "uid"
+          }
+        }
+      }
+    },
+    "Posts": {
+      "default": {
+        "primary": {},
+        "items": {
+          "description": {
+            "config": {
+              "patternType": "STORY",
+              "blocks": 1
+            }
+          }
+        }
       }
     }
   }
