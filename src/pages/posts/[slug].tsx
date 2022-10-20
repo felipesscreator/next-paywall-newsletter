@@ -1,6 +1,8 @@
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, GetStaticPropsContext } from "next"
 import { getSession } from "next-auth/react"
-import { Head } from "next/document";
+import Head from "next/head";
+import { RichText } from 'prismic-dom';
+import * as prismicH from '@prismicio/helpers'
 
 import { createClient } from "../../services/prismic"
 
@@ -26,36 +28,44 @@ export default function Post({ post }: PostProps) {
         <article className={styles.post}>
           <h1>{post.title}</h1>
           <time>{post.updatedAt}</time>
-          <div
-            className={styles.postContent}
-            dangerouslySetInnerHTML={{ __html: post.content }} 
-          />
+          {/* {post.content.map((document) => ( */}
+            <div 
+              className={styles.postContent}
+              dangerouslySetInnerHTML={{ __html: post.content }} 
+            />
+          {/* ))} */}
         </article>
       </main>
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  previewData, 
+  params,
+  req
+}: GetStaticPropsContext ) => {
   const session = await getSession({ req })
   const { slug } = params;
 
   // if (!session) {}
 
-  const prismic = createClient(req);
+  const client = createClient({ previewData });
 
-  const response = await prismic.getAllByUIDs('post', String(slug), {})
-
+  const response = await client.getByUID('post', String(slug), {})
+  
   const post = {
     slug,
-    title: response,
-    content: response,
-    updatedAt: new Date(response.last_publication_date).toLocaleDateString('pt-BR', {
+    title: response.data.title,
+    content: prismicH.asHTML(response.data.slices[0].items[0].description),
+    updatedAt: new Date(response.last_publication_date)
+    .toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long',
       year: 'numeric'
     })
   }
+  console.log(JSON.stringify(post, null, 2))
 
   return {
     props: {

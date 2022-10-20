@@ -15,6 +15,7 @@
     "@prismicio/helpers": "^2.3.5",
     "@prismicio/next": "^0.1.7",
     "@prismicio/react": "^2.5.0",
+    "@prismicio/richtext": "^2.1.1",
     "@prismicio/slice-simulator-react": "^0.2.2",
     "@stripe/stripe-js": "^1.38.1",
     "axios": "^0.27.2",

@@ -19,7 +19,6 @@ interface PostsProps {
 }
 
 export default function Posts({ posts }: PostsProps) {
-  console.log(posts)
   return(
     <>
       <Head>
@@ -59,7 +58,8 @@ export const getStaticProps: GetStaticProps = async ({
       //   description => description.type === 'paragraph'?.text ??''
       // )
       ,
-      updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+      updatedAt: new Date(post.last_publication_date)
+      .toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps = async ({
     }
   })
 
-  console.log(JSON.stringify(response, null, 2))
+  // console.log(JSON.stringify(response, null, 2))
 
   return {
     props: {
