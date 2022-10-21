@@ -48,7 +48,16 @@ export const getServerSideProps: GetServerSideProps = async ({
   const session = await getSession({ req })
   const { slug } = params;
 
-  // if (!session) {}
+  console.log(session)
+
+  // if (!session.activeSubscription) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     }
+  //   }
+  // }
 
   const client = createClient({ previewData });
 
@@ -65,7 +74,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       year: 'numeric'
     })
   }
-  console.log(JSON.stringify(post, null, 2))
+  // console.log(JSON.stringify(post, null, 2))
 
   return {
     props: {
