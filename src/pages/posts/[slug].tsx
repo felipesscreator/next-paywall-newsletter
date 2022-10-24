@@ -1,7 +1,6 @@
 import { GetServerSideProps, GetStaticPropsContext } from "next"
 import { getSession } from "next-auth/react"
 import Head from "next/head";
-import { RichText } from 'prismic-dom';
 import * as prismicH from '@prismicio/helpers'
 
 import { createClient } from "../../services/prismic"
@@ -28,12 +27,10 @@ export default function Post({ post }: PostProps) {
         <article className={styles.post}>
           <h1>{post.title}</h1>
           <time>{post.updatedAt}</time>
-          {/* {post.content.map((document) => ( */}
-            <div 
-              className={styles.postContent}
-              dangerouslySetInnerHTML={{ __html: post.content }} 
-            />
-          {/* ))} */}
+          <div 
+            className={styles.postContent}
+            dangerouslySetInnerHTML={{ __html: post.content }} 
+          />
         </article>
       </main>
     </>
@@ -48,16 +45,14 @@ export const getServerSideProps: GetServerSideProps = async ({
   const session = await getSession({ req })
   const { slug } = params;
 
-  // console.log(session)
-
-  // if (!session.activeSubscription) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     }
-  //   }
-  // }
+  if (!session.activeSubscription) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
 
   const client = createClient({ previewData });
 
@@ -74,7 +69,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       year: 'numeric'
     })
   }
-  // console.log(JSON.stringify(post, null, 2))
 
   return {
     props: {

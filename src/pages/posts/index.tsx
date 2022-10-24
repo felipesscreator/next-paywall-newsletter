@@ -1,7 +1,6 @@
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { RichText } from 'prismic-dom';
 
 import { createClient } from '../../services/prismic';
 
@@ -53,11 +52,7 @@ export const getStaticProps: GetStaticProps = async ({
     return {
       slug: post.uid,
       title: post.data.title,
-      excerpt: post.data.slices[0].items[0].description[0].text
-      // .find(
-      //   description => description.type === 'paragraph'?.text ??''
-      // )
-      ,
+      excerpt: post.data.slices[0].items[0].description[0].text,
       updatedAt: new Date(post.last_publication_date)
       .toLocaleDateString('pt-BR', {
         day: '2-digit',

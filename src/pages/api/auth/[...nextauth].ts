@@ -37,11 +37,13 @@ export default NextAuth({
     //         ])
     //       )
     //     )
+    //     console.log(`passou ${(JSON.stringify(session, null, 2))}`)
     //     return {
     //       ...session,
     //       activeSubscription: userActiveSubscription
     //     };
     //   } catch {
+    //     console.error(`error ${(JSON.stringify(session, null, 2))}`)
     //     return {
     //       ...session,
     //       activeSubscription: null,
