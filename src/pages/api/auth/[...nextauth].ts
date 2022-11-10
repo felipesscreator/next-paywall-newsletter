@@ -13,43 +13,43 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
-      try {
-        const userActiveSubscription = await fauna.query(
-          q.Get(
-            q.Intersection([
-              q.Match(
-                q.Index('subscription_by_user_ref'),
-                q.Select(
-                  'ref',
-                  q.Get(
-                    q.Match(
-                      q.Index('user_by_email'),
-                      q.Casefold(user.email)
-                    )
-                  )
-                )
-              ),
-              q.Match(
-                q.Index('subscription_by_status'),
-                'active'
-              )
-            ])
-          )
-        )
-        console.log(`passou ${(JSON.stringify(session, null, 2))}`)
-        return {
-          ...session,
-          activeSubscription: userActiveSubscription
-        };
-      } catch {
-        console.error(`error ${(JSON.stringify(session, null, 2))}`)
-        return {
-          ...session,
-          activeSubscription: null,
-        }
-      }
-    },
+    // async session({ session, user }) {
+    //   try {
+    //     const userActiveSubscription = await fauna.query(
+    //       q.Get(
+    //         q.Intersection([
+    //           q.Match(
+    //             q.Index('subscription_by_user_ref'),
+    //             q.Select(
+    //               'ref',
+    //               q.Get(
+    //                 q.Match(
+    //                   q.Index('user_by_email'),
+    //                   q.Casefold(user.email)
+    //                 )
+    //               )
+    //             )
+    //           ),
+    //           q.Match(
+    //             q.Index('subscription_by_status'),
+    //             'active'
+    //           )
+    //         ])
+    //       )
+    //     )
+    //     console.log(`passou ${(JSON.stringify(session, null, 2))}`)
+    //     return {
+    //       ...session,
+    //       activeSubscription: userActiveSubscription
+    //     };
+    //   } catch {
+    //     console.error(`error ${(JSON.stringify(session, null, 2))}`)
+    //     return {
+    //       ...session,
+    //       activeSubscription: null,
+    //     }
+    //   }
+    // },
     async signIn({ user, account, profile }) {
       const { email } = user;
 

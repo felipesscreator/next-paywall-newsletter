@@ -1,13 +1,12 @@
 import * as prismicH from '@prismicio/helpers';
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 
-import { createClient } from "../../services/prismic";
+import { createClient } from "../../../services/prismic";
 
-import styles from './post.module.scss';
+import styles from '../post.module.scss';
 
-interface PostProps {
+interface PostPreviewProps {
   post: {
     slug: string;
     title: string;
@@ -16,7 +15,7 @@ interface PostProps {
   }
 }
 
-export default function Post({ post }: PostProps) {
+export default function PostPreview({ post }: PostPreviewProps) {
   return(
     <>
       <Head>
@@ -37,22 +36,15 @@ export default function Post({ post }: PostProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  previewData, 
-  params,
-  req
-}) => {
-  const session = await getSession({ req })
-  const { slug } = params;
+export const getStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
+}
 
-  // if (!session.activeSubscription) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     }
-  //   }
-  // }
+export const getStaticProps: GetStaticProps = async ({ params, previewData } ) => {
+  const { slug } = params;
 
   const client = createClient({ previewData });
 
