@@ -1,6 +1,10 @@
 import * as prismicH from '@prismicio/helpers';
 import { GetStaticProps } from "next";
+import { useSession } from 'next-auth/react';
 import Head from "next/head";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 import { createClient } from "../../../services/prismic";
 
@@ -16,6 +20,14 @@ interface PostPreviewProps {
 }
 
 export default function PostPreview({ post }: PostPreviewProps) {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.activeSubscription) {
+      router.push(`/posts/${post.slug}`)
+    }
+  }, [session])
   return(
     <>
       <Head>
@@ -27,9 +39,16 @@ export default function PostPreview({ post }: PostPreviewProps) {
           <h1>{post.title}</h1>
           <time>{post.updatedAt}</time>
           <div 
-            className={styles.postContent}
+            className={`${styles.postContent} ${styles.previewContent}`}
             dangerouslySetInnerHTML={{ __html: post.content }} 
           />
+
+          <div className={styles.continueReading}>
+            Wanna continue reading?
+            <Link href="/">
+              <a href="">Subscribe now 😉</a>
+            </Link>
+          </div>
         </article>
       </main>
     </>
@@ -53,7 +72,7 @@ export const getStaticProps: GetStaticProps = async ({ params, previewData } ) =
   const post = {
     slug,
     title: response.data.title,
-    content: prismicH.asHTML(response.data.slices[0].items[0].description),
+    content: prismicH.asHTML(response.data.slices[0].items[0].description.slice(0, 3)),
     updatedAt: new Date(response.last_publication_date)
     .toLocaleDateString('pt-BR', {
       day: '2-digit',
