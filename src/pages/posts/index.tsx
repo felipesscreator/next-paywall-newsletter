@@ -1,24 +1,25 @@
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
+import * as prismicH from "@prismicio/helpers";
+import { GetStaticProps, GetStaticPropsContext } from "next";
+import Head from "next/head";
+import Link from "next/link";
 
-import { createClient } from '../../services/prismic';
+import { createClient } from "../../services/prismic";
 
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
 
 type Post = {
   slug: string;
   title: string;
   excerpt: string;
   updatedAt: string;
-}
+};
 
 interface PostsProps {
   posts: Post[];
 }
 
 export default function Posts({ posts }: PostsProps) {
-  return(
+  return (
     <>
       <Head>
         <title>Posts | NewsLetter</title>
@@ -26,7 +27,7 @@ export default function Posts({ posts }: PostsProps) {
 
       <main className={styles.container}>
         <div className={styles.posts}>
-          {posts.map(post => (
+          {posts.map((post) => (
             <Link key={post.slug} href={`/posts/${post.slug}`}>
               <a>
                 <time>{post.updatedAt}</time>
@@ -41,32 +42,34 @@ export default function Posts({ posts }: PostsProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ 
-  previewData, 
+export const getStaticProps: GetStaticProps = async ({
+  previewData,
 }: GetStaticPropsContext) => {
   const client = createClient({ previewData });
 
-  const response = await client.getAllByType('post')
+  const response = await client.getAllByType("post");
 
-  const posts = response.map(post => {
+  console.log(JSON.stringify(response, null, 2));
+
+  const posts = response.map((post) => {
     return {
       slug: post.uid,
       title: post.data.title,
       excerpt: post.data.slices[0].items[0].description[0].text,
-      updatedAt: new Date(post.last_publication_date)
-      .toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      })
-    }
-  })
-
-  // console.log(JSON.stringify(response, null, 2))
+      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+        "pt-BR",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }
+      ),
+    };
+  });
 
   return {
     props: {
-      posts
-    }
-  }
-}
+      posts,
+    },
+  };
+};

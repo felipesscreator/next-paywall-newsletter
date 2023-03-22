@@ -1,12 +1,12 @@
 import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
-import Link from 'next/link'
+import Link from "next/link";
 
-import { PrismicProvider } from '@prismicio/react'
-import { PrismicPreview } from '@prismicio/next'
+import { PrismicProvider } from "@prismicio/react";
+import { PrismicPreview } from "@prismicio/next";
 
-import { repositoryName } from '../services/prismic'
+import { repositoryName } from "../services/prismic";
 
 import { Header } from "../components/Header";
 
