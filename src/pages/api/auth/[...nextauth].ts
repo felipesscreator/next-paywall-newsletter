@@ -25,7 +25,7 @@ export default NextAuth({
                   q.Get(
                     q.Match(
                       q.Index('user_by_email'),
-                      q.Casefold(user.email)
+                      q.Casefold(session.user.email)
                     )
                   )
                 )
@@ -37,13 +37,11 @@ export default NextAuth({
             ])
           )
         )
-        console.log(`passou ${(JSON.stringify(session, null, 2))}`)
         return {
           ...session,
           activeSubscription: userActiveSubscription
         };
       } catch {
-        console.error(`error ${(JSON.stringify(session, null, 2))}`)
         return {
           ...session,
           activeSubscription: null,

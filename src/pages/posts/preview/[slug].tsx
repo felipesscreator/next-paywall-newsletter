@@ -76,9 +76,9 @@ export const getStaticProps: GetStaticProps = async ({
   const post = {
     slug,
     title: response.data.title,
-    content: prismicH
-      .asHTML(response.data.slices[0].items[0].description)
-      .slice(0, 3),
+    content: prismicH.asHTML(
+      response.data.slices[0].items[0].description.slice(0, 3)
+    ),
     updatedAt: new Date(response.last_publication_date).toLocaleDateString(
       "pt-BR",
       {

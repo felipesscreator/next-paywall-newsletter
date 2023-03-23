@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const response = await client.getAllByType("post");
 
-  console.log(JSON.stringify(response, null, 2));
+  // console.log(JSON.stringify(response, null, 2));
 
   const posts = response.map((post) => {
     return {
