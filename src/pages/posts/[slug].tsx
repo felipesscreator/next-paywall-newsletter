@@ -1,11 +1,11 @@
-import * as prismicH from "@prismicio/helpers";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 
-import { createClient } from "../../services/prismic";
+import { getPrismicClient } from "../../services/prismic";
 
 import styles from "./post.module.scss";
+import { RichText } from "prismic-dom";
 
 interface PostProps {
   post: {
@@ -38,7 +38,6 @@ export default function Post({ post }: PostProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({
-  previewData,
   params,
   req,
 }) => {
@@ -54,14 +53,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
-  const client = createClient({ previewData });
+  const prismic = getPrismicClient(req);
 
-  const response = await client.getByUID("post", String(slug), {});
+  const response = await prismic.getByUID("post", String(slug), {});
 
   const post = {
     slug,
-    title: response.data.title,
-    content: prismicH.asHTML(response.data.slices[0].items[0].description),
+    title: RichText.asText(response.data.title),
+    content: RichText.asHtml(response.data.description),
     updatedAt: new Date(response.last_publication_date).toLocaleDateString(
       "pt-BR",
       {
@@ -71,7 +70,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     ),
   };
-
   return {
     props: {
       post,

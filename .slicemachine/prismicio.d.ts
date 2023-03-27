@@ -11,14 +11,25 @@ interface PostDocumentData {
     /**
      * title field in *post*
      *
-     * - **Field Type**: Text
+     * - **Field Type**: Rich Text
      * - **Placeholder**: *None*
      * - **API ID Path**: post.title
      * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
      *
      */
-    title: prismicT.KeyTextField;
+    title: prismicT.RichTextField;
+    /**
+     * description field in *post*
+     *
+     * - **Field Type**: Rich Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: post.description
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+     *
+     */
+    description: prismicT.RichTextField;
     /**
      * Slice Zone field in *post*
      *
@@ -52,16 +63,6 @@ export type AllDocumentTypes = PostDocument;
  *
  */
 export interface PostsSliceDefaultItem {
-    /**
-     * title field in *Posts → Items*
-     *
-     * - **Field Type**: Rich Text
-     * - **Placeholder**: *None*
-     * - **API ID Path**: posts.items[].title
-     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-     *
-     */
-    title: prismicT.RichTextField;
     /**
      * description field in *Posts → Items*
      *

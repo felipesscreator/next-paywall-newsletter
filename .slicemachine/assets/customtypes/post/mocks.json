@@ -11,7 +11,25 @@
   "lang": "en-us",
   "alternate_languages": [],
   "data": {
-    "title": "cowboy",
+    "title": [
+      {
+        "type": "paragraph",
+        "text": "Id minim excepteur ipsum. Aute Lorem non laborum laborum dolore eiusmod. Ullamco dolore mollit cillum ullamco elit nulla magna enim cupidatat.",
+        "spans": []
+      }
+    ],
+    "description": [
+      {
+        "type": "heading1",
+        "text": "Atmosphere",
+        "spans": []
+      },
+      {
+        "type": "paragraph",
+        "text": "Laboris Lorem incididunt incididunt excepteur dolore minim qui velit ut proident. Elit occaecat do pariatur et excepteur voluptate culpa amet do anim fugiat.",
+        "spans": []
+      }
+    ],
     "slices": []
   }
 }

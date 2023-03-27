@@ -2,7 +2,14 @@
   "_cts": {
     "posts": {},
     "postss": {},
-    "post": {}
+    "post": {
+      "description": {
+        "config": {
+          "patternType": "STORY",
+          "blocks": 1
+        }
+      }
+    }
   },
   "slices": {
     "Post": {
@@ -21,7 +28,7 @@
         "items": {
           "description": {
             "config": {
-              "patternType": "STORY",
+              "patternType": "PARAGRAPH",
               "blocks": 1
             }
           }

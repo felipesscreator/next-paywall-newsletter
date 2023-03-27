@@ -1,4 +1,3 @@
-import * as prismicH from "@prismicio/helpers";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -6,9 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-import { createClient } from "../../../services/prismic";
+import { getPrismicClient } from "../../../services/prismic";
 
 import styles from "../post.module.scss";
+import { RichText } from "prismic-dom";
 
 interface PostPreviewProps {
   post: {
@@ -63,22 +63,17 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-  previewData,
-}) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params;
 
-  const client = createClient({ previewData });
+  const prismic = getPrismicClient();
 
-  const response = await client.getByUID("post", String(slug), {});
+  const response = await prismic.getByUID("post", String(slug), {});
 
   const post = {
     slug,
-    title: response.data.title,
-    content: prismicH.asHTML(
-      response.data.slices[0].items[0].description.slice(0, 3)
-    ),
+    title: RichText.asText(response.data.title),
+    content: RichText.asHtml(response.data.description.splice(0, 3)),
     updatedAt: new Date(response.last_publication_date).toLocaleDateString(
       "pt-BR",
       {
@@ -88,7 +83,6 @@ export const getStaticProps: GetStaticProps = async ({
       }
     ),
   };
-
   return {
     props: {
       post,

@@ -1,9 +1,10 @@
-import * as prismicH from "@prismicio/helpers";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { RichText } from "prismic-dom";
+import Prismic from "@prismicio/client";
 
-import { createClient } from "../../services/prismic";
+import { getPrismicClient } from "../../services/prismic";
 
 import styles from "./styles.module.scss";
 
@@ -42,20 +43,27 @@ export default function Posts({ posts }: PostsProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({
-  previewData,
-}: GetStaticPropsContext) => {
-  const client = createClient({ previewData });
+export const getStaticProps: GetStaticProps = async () => {
+  const prismic = getPrismicClient();
 
-  const response = await client.getAllByType("post");
+  const response = await prismic.query(
+    [Prismic.predicates.at("document.type", "post")],
+    {
+      fetch: ["post.title", "post.description"],
+      pageSize: 100,
+    }
+  );
 
-  // console.log(JSON.stringify(response, null, 2));
+  console.log(JSON.stringify(response.results, null, 2));
 
-  const posts = response.map((post) => {
+  const posts = response.results.map((post) => {
     return {
       slug: post.uid,
-      title: post.data.title,
-      excerpt: post.data.slices[0].items[0].description[0].text,
+      title: RichText.asText(post.data.title),
+      excerpt:
+        post.data.description.find(
+          (description) => description.type === "paragraph"
+        )?.text ?? "",
       updatedAt: new Date(post.last_publication_date).toLocaleDateString(
         "pt-BR",
         {
