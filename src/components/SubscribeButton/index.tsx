@@ -2,15 +2,12 @@ import { signIn, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
 import { api } from "../../services/api";
-import { getStripeJs } from "../../services/stripe-js";
+// import { getStripeJs } from "../../services/stripe-js";
+import getStripe from "../../utils/get-stripejs";
 
 import styles from "./styles.module.scss";
 
-interface SubscribeButtonProps {
-  priceId: string;
-}
-
-export function SubscribeButton({ priceId }: SubscribeButtonProps) {
+export function SubscribeButton() {
   const [session] = useSession();
   const router = useRouter();
 
@@ -30,7 +27,7 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
 
       const { sessionId } = response.data;
 
-      const stripe = await getStripeJs();
+      const stripe = await getStripe();
 
       await stripe.redirectToCheckout({ sessionId });
     } catch (err) {
