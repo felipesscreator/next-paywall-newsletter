@@ -81,5 +81,8 @@ export default NextAuth({
         return false
       }
     },
+    redirect: async (url, baseUrl) => {
+      return Promise.resolve(url)
+    }
   }
 })
