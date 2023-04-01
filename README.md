@@ -1,70 +1,81 @@
 # NewsLetter
 
-## A newsletter with paywall
+This project is a newsletter web application built with Next.js, React.js, Prismic, Stripe, FaunaDB, and GitHub OAuth. It allows users to subscribe to a newsletter using Stripe, and stores their information in FaunaDB.
 
-### Made with NextJs, ReactJs, FaunaDB for database, Stripe for making the payment and Prismic for CMS
-
-## Main Dependencies
-
-| Dependencies | Version   |
-|---           |---        |
-| next         | 12.3.1    |
-| faunadb      | ^4.7.0    |
-| stripe       | ^10.11.0  |
-| prismic-dom  | ^2.2.5    |
-| axios        | ^0.27.2   |
-| sass         | ^1.55.0   |
-
-## Running the app
+## Running the Application
 
 ### Dependent of
 
 - Some Package Manager Like npm, yarn, pnpm, etc... (yarn recommended)
-- Count on Github, FaunaDB, Stripe and Prismic.
-- Clone of the repository [newsletter-next](https://github.com/Feelpe/newsletter-next)
+- Git
+- nodejs
 
-### Set the Development environment
+#### Clone the repository
 
-- Create a file on the root called .env.local
-- Copy the file .env.local.example and paste on the file created
+```bash
+  git clone https://github.com/Feelpe/newsletter-next.git
+```
 
-#### Now use the following steps to fill the .env.local file
+#### Install the dependencies
 
-#### Github
+```bash
+  cd your-project
+  yarn install
+```
 
-- [Github login](https://docs.github.com/pt/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
+### Get the necessary environment variables
 
 #### Prismic
 
-- [Prismic Access Token](https://prismic.io/docs/access-token)
-- add PRISMIC_ENDPOINTv2
+- Create a Prismic account if you haven't already. [Prismic documentation](https://prismic.io/docs)
+- Create a Prismic repository if you haven't already.
+- Create a new [Custom Type](https://prismic.io/docs/custom-types) with the following fields:
+  - Title (Text)
+  - Content (Rich Text)
+- Generate an access token for Prismic by going to the "API & Security" section of your repository settings. [Read more about generating access tokens in Prismic](https://prismic.io/docs/access-token#generate-access-tokens)
 
 #### Stripe
 
-##### In the project directory run this for installation =
+- Create a Stripe account if you haven't already. [Stripe documentation](https://stripe.com/docs)
+- Go to the "Developers" section of the Stripe dashboard and click on "API keys".
+- Copy the "Publishable key" and "Secret key". [Read more about API keys in Stripe](https://stripe.com/docs/keys)
 
-```powershell
-  #Installation
-  $ yarn install
+#### GitHub
+
+- Create a GitHub account if you haven't already. [GitHub documentation](https://docs.github.com/pt)
+- Go to the "Settings" section of your account and click on "Developer settings".
+- Click on "OAuth Apps" and then "New OAuth App".
+- Fill out the "Application name", "Homepage URL", "Authorization callback URL" (which should be `http://localhost:3333/api/auth/callback`).
+- Click on "Register application" and then copy the "Client ID" and "Client Secret".
+- [Read more about OAuth Apps in GitHub if you need](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
+
+#### FaunaDB
+
+- Create a FaunaDB account if you haven't already. [FaunaDB documentation](https://docs.fauna.com/fauna/current/)
+- Go to the "Security" section of your FaunaDB dashboard and create a new key with the "Server" role.
+- [Read more about security in FaunaDB if you need](https://docs.fauna.com/fauna/current/security/)
+
+### Set up the environment variable
+
+- Create a `.env.local` file at the root of the project with the following environment variables and replace the values with the environment variables you obtained.
+
+```makefile
+  PRISMIC_ACCESS_TOKEN=
+  NEXT_PUBLIC_STRIPE_API_KEY=
+  PRISMIC_API_ENDPOINT=
+
+  STRIPE_SECRET_KEY=
+
+  GITHUB_CLIENT_ID=
+  GITHUB_CLIENT_SECRET=
+
+  FAUNA_SECRET_KEY=
 ```
 
-##### Than this for running in development mode =
+### Start the development server
 
-```powershell
-  # development mode
-  $ yarn dev
-```
-
-#### Stripe Webhook
-
-```powershell
-  #Install stripe cli
-  $ yarn install stripe/stripe-cli/stripe
-```
-
-```powershell
-  #Run stripe listen 
-  $ stripe listen --forward-to localhost:3000/api/webhooks
+```bash
+  yarn dev
 ```
 
 Now you can open [http://localhost:3333](http://localhost:3333) to view it in your browser.
