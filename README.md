@@ -36,6 +36,7 @@ This project is a newsletter web application built with Next.js, React.js, Prism
 
 #### Stripe
 
+- Install the [Stripe CLI](https://stripe.com/docs/stripe-cli).
 - Create a Stripe account if you haven't already. [Stripe documentation](https://stripe.com/docs)
 - Go to the "Developers" section of the Stripe dashboard and click on "API keys".
 - Copy the "Publishable key" and "Secret key". [Read more about API keys in Stripe](https://stripe.com/docs/keys)
@@ -60,16 +61,16 @@ This project is a newsletter web application built with Next.js, React.js, Prism
 - Create a `.env.local` file at the root of the project with the following environment variables and replace the values with the environment variables you obtained.
 
 ```makefile
-  PRISMIC_ACCESS_TOKEN=
-  NEXT_PUBLIC_STRIPE_API_KEY=
-  PRISMIC_API_ENDPOINT=
-
   STRIPE_SECRET_KEY=
+  NEXT_PUBLIC_STRIPE_API_KEY=
 
   GITHUB_CLIENT_ID=
   GITHUB_CLIENT_SECRET=
 
   FAUNA_SECRET_KEY=
+
+  PRISMIC_API_ENDPOINT=
+  PRISMIC_ACCESS_TOKEN=
 ```
 
 ### Start the development server
