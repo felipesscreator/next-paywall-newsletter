@@ -25,22 +25,6 @@ This project is a newsletter web application built with Next.js, React.js, Prism
 
 ### Get the necessary environment variables
 
-#### Prismic
-
-- Create a Prismic account if you haven't already. [Prismic documentation](https://prismic.io/docs)
-- Create a Prismic repository if you haven't already.
-- Create a new [Custom Type](https://prismic.io/docs/custom-types) with the following fields:
-  - Title (Text)
-  - Content (Rich Text)
-- Generate an access token for Prismic by going to the "API & Security" section of your repository settings. [Read more about generating access tokens in Prismic](https://prismic.io/docs/access-token#generate-access-tokens)
-
-#### Stripe
-
-- Install the [Stripe CLI](https://stripe.com/docs/stripe-cli).
-- Create a Stripe account if you haven't already. [Stripe documentation](https://stripe.com/docs)
-- Go to the "Developers" section of the Stripe dashboard and click on "API keys".
-- Copy the "Publishable key" and "Secret key". [Read more about API keys in Stripe](https://stripe.com/docs/keys)
-
 #### GitHub
 
 - Create a GitHub account if you haven't already. [GitHub documentation](https://docs.github.com/pt)
@@ -55,22 +39,73 @@ This project is a newsletter web application built with Next.js, React.js, Prism
 - Create a FaunaDB account if you haven't already. [FaunaDB documentation](https://docs.fauna.com/fauna/current/)
 - Go to the "Security" section of your FaunaDB dashboard and create a new key with the "Server" role.
 - [Read more about security in FaunaDB if you need](https://docs.fauna.com/fauna/current/security/)
+- Still in the dashboard, go to "Collections" and create two collections called "subscriptions" and "users".
+- Now go to "Indexes" and create the following ones for which one Source Collection "users" and "subscriptions".
+- users: user_by_email, user_by_stripe_customer_id
+- subscriptions: subscription_by_id, subscription_by_status, subscription_by_user_ref
+
+#### Stripe
+
+- Create a Stripe account if you haven't already. [Stripe documentation](https://stripe.com/docs)
+- Log in to your Stripe account and go to the [Products](https://dashboard.stripe.com/products) page.
+- Click on the "New" button to create a new product.
+- Fill out the product details, including the name, description, and pricing information. For a subscription product, select the "Recurring" pricing type and specify the monthly subscription interval.
+- Save the product and make note of its ID, which you can find in the "API" section of the product details page.
+- Go to the "Developers" section of the Stripe dashboard and click on "API keys".
+- Copy the "Publishable key" and "Secret key". [Read more about API keys in Stripe](https://stripe.com/docs/keys)
+
+##### Stripe Webhook
+
+- Install the [Stripe CLI](https://stripe.com/docs/stripe-cli).
+- Open your Stripe CLI and authenticate your Stripe account by running the following command:
+
+```bash
+stripe login
+```
+
+- Forward your local webhook endpoint using the stripe listen command:
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks
+```
+
+- Copy the webhook secret key in the console
+
+#### Prismic
+
+- Create a Prismic account if you haven't already. [Prismic documentation](https://prismic.io/docs)
+- Create a Prismic repository if you haven't already.
+- Create a new [Custom Type](https://prismic.io/docs/custom-types) with the following fields:
+  - Title (Text)
+  - Content (Rich Text)
+- Generate an access token for Prismic by going to the "API & Security" section of your repository settings. [Read more about generating access tokens in Prismic](https://prismic.io/docs/access-token#generate-access-tokens)
+- In the same page find the API endpoint section and copy to your .env.local.
 
 ### Set up the environment variable
 
 - Create a `.env.local` file at the root of the project with the following environment variables and replace the values with the environment variables you obtained.
 
 ```makefile
-  STRIPE_SECRET_KEY=
-  NEXT_PUBLIC_STRIPE_API_KEY=
+# Stripe
+STRIPE_API_KEY=
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=
+STRIPE_API_PRODUCT=
 
-  GITHUB_CLIENT_ID=
-  GITHUB_CLIENT_SECRET=
+# Stripe Webhooks
+STRIPE_WEBHOOK_SECRET=
+STRIPE_SUCCESS_URL=http://localhost:3000/posts
+STRIPE_CANCEL_URL=http://localhost:3000/
 
-  FAUNA_SECRET_KEY=
+# Github
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
 
-  PRISMIC_API_ENDPOINT=
-  PRISMIC_ACCESS_TOKEN=
+# FaunaDB
+FAUNADB_KEY=
+
+# Prismic CMS
+PRISMIC_ENDPOINT=
+PRISMIC_ACCESS_TOKEN=
 ```
 
 ### Start the development server
