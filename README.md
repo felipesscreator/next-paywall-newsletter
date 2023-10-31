@@ -4,7 +4,7 @@
 
 # NewsLetter With Paywall
 
-This project is a newsletter web application built with Next.js, React.js, Prismic, Stripe, FaunaDB, and GitHub OAuth. It allows users to subscribe to a newsletter using Stripe, and stores their information in FaunaDB.
+Welcome, this application is a NewsLetter with a Paywall, an intuitive Next.js and React.js project integrating GitHub OAuth, FaunaDB, Stripe, and Prismic.
 
 ## Getting Started
 
